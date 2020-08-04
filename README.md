@@ -2,6 +2,8 @@
 
 Add chapters easily to a file, with ffmpeg.
 
+Created because I really don't want to type out all those times, and convert timestamps into nanoseconds just to correctly tag recordings of concerts.
+
 ## Requirements
 
 * ffmpeg
