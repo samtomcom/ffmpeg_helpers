@@ -10,22 +10,24 @@ Add chapters easily to a file, with ffmpeg.
 ## Usage
 
 Create a file with timestamps and (optional) chapter names for the chapters, separated by a space.  
-The time should be formated as HH:MM:SS:ms, if any are ommited the last values will be assumed to be 0, e.g. 00:12:30 will give the ms collumn 00
-If chapter names are not provided they will be automatically created (by number)  
+The time should be formated as HH:MM:SS
+The final line should be the approximate length of the video
 
 chapters.txt
 
-    00 Intro
-    00:01 Chapter 1
-    00:01:30 
-    00:02 End
+    00:00:00 Intro
+    00:01:00 Chapter 1
+    00:01:30 Unnamed Chapter
+    00:02:00 Final Chapter
+    00:03:00 x
+
+If chapter names are not provided they will be named 'Unnamed Chapter'
+
+    00:01:30
 
 is the same as
 
-    00:00:00:00 Intro
-    00:01:00:00 Chapter 1
-    00:01:30:00 Chapter 2
-    00:02:00:00 End
+    00:01:30 Unnamed Chapter
 
 Run the program with:
 
