@@ -1,11 +1,13 @@
+#!/usr/bin/env python3
+
 import sys
 import subprocess
 import datetime
 import os
 
 # get input
-TMPFILE = '_tmp_ffmpeg_chapters.txt'
 _, VIDEO, CHAPTERS, OUTPUT = sys.argv
+TMPFILE = '_tmp_ffmpeg_chapters.txt'
 times = []
 
 # process chapters file
@@ -19,11 +21,10 @@ with open(CHAPTERS, 'r') as f:
 
         times.append([time,title])
 
-# creating the formatted timestamps file
-
+# FFMETADATA file for timestamps
 timestamps = [';FFMETADATA1\n']
 
-# loop over all but last one
+# last time is video length
 for i, (time, title) in enumerate(times[:-1]):
     end = times[i+1][0]
     timestamps += ['[CHAPTER]\n',
@@ -35,7 +36,6 @@ for i, (time, title) in enumerate(times[:-1]):
 with open(TMPFILE, 'w') as f:
     f.writelines(timestamps)
 
-
 # run add the formatted chapters to the video
 subprocess.run(["ffmpeg", 
     "-i", TMPFILE,
@@ -46,5 +46,5 @@ subprocess.run(["ffmpeg",
     ]
 )
 
-# # cleanup
+# cleanup
 os.remove(TMPFILE)

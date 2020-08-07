@@ -9,6 +9,12 @@ Created because I really don't want to type out all those times, and convert tim
 * ffmpeg
 * Python 3
 
+## Installation
+
+    $ git clone https://github.com/samtomcom/ffmpeg_chapters.git
+    $ cd ffmpeg_chapters/
+    $ sudo chmod +x ffmpeg_chapters.py
+
 ## Usage
 
 Create a file with timestamps and (optional) chapter names for the chapters, separated by a space.  
