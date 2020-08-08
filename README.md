@@ -39,6 +39,6 @@ is the same as
 
 Run the program with:
 
-    $ python ffmpeg_chapters.py video.mp4 chapters.txt out.mp4
+    $ ffmpeg_chapters.py video.mp4 chapters.txt out.mp4
 
 Where out.mp4 is the output file.
