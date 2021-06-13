@@ -2,23 +2,31 @@
 
 import sys
 import subprocess
-import datetime
 import os
+
+from datetime import datetime
+from datetime import timedelta
 
 # get input
 _, VIDEO, CHAPTERS, OUTPUT = sys.argv
-TMPFILE = '_tmp_ffmpeg_chapters.txt'
+TMPFILE = '_tmp_ffmpeg_chapters'
 times = []
 
 # process chapters file
 with open(CHAPTERS, 'r') as f:
     for line in f:
         time, title = line.split(" ", 1)
-        h,m,s = [int(x) for x in time.split(":")]
-        time = int(datetime.timedelta(
-                hours=h, minutes=m, seconds=s
-            ).total_seconds()) * 1_000_000_000 # converted to ns
+        
+        if len(time) == 2: # ss
+            time = datetime.strptime(time, "%S")
+        elif len(time) == 5: # mm:ss
+            time = datetime.strptime(time, "%M:%S")
+        elif len(time) == 8: # hh:mm:ss
+            time = datetime.strptime(time, "%H:%M:%S")
+        else:
+            raise Exception("Date time format is not correct.")
 
+        time = int((time - datetime(1900, 1, 1)).total_seconds()) * 1_000_000_000 # s to ns
         times.append([time,title])
 
 # FFMETADATA file for timestamps

@@ -15,19 +15,21 @@ Created because I really don't want to type out all those times, and convert tim
     $ cd ffmpeg_chapters/
     $ sudo chmod +x ffmpeg_chapters.py
 
+Make sure the py file is in a folder on your path.
+
 ## Usage
 
 Create a file with timestamps and (optional) chapter names for the chapters, separated by a space.  
-The time should be formated as HH:MM:SS
-The final line should be the approximate length of the video
+The time can be formatted as either `SS`, `MM:SS`, or `HH:MM:SS`.
+The final line should be the approximate length of the video.
 
 chapters.txt
 
-    00:00:00 Intro
-    00:01:00 Chapter 1
-    00:01:30 Unnamed Chapter
-    00:02:00 Final Chapter
-    00:03:00 x
+    00 Intro
+    01:00 Chapter 1
+    01:30 Unnamed Chapter
+    01:02:00 Final Chapter
+    02:03:00 x
 
 If chapter names are not provided they will be named 'Unnamed Chapter'
 
