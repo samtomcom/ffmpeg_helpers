@@ -23,13 +23,13 @@ You may have to `chmod +x` the files to make them executable if they are not alr
 
 A script to make adding chapters to video files more human readable (01:23:45 timestamps instead of milliseconds).
 
-### find264
-
-Find a list of the files in the current directory that are encoded with H.264 encoding.
-
 ### findaudio
 
-Find a list of the files in the current directory that have 5.1 audio channels.
+Find a list of the files in the current directory that are not in stereo.
+
+### findvideo
+
+Find a list of the files in the current directory that are not encoded in H.265
 
 ### reencode
 

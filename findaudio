@@ -1,15 +1,19 @@
 #!/bin/bash
 
 for file in */*; do
-    [ -f "$file" ] || continue
- 	if [[ $(ffprobe -v quiet -print_format json -show_streams "$file" | grep -c 5.1) -gt 0 ]]; then
-    	echo $file
-	fi
+[ -f "$file" ] || continue
+  if [[ $(ffprobe -v quiet -print_format json -show_streams "$file" | grep -c '"channel_layout": "stereo"') -lt 1 ]]; then
+    if [[ "${file##*.}" = "mkv" ]] || [[ "${file##*.}" = "mp4" ]] || [[ "${file##*.}" = "avi" ]]; then
+      echo "$file"
+    fi
+  fi
 done
 
 for file in */*/*; do
-    [ -f "$file" ] || continue
- 	if [[ $(ffprobe -v quiet -print_format json -show_streams "$file" | grep -c 5.1) -gt 0 ]]; then
-    	echo $file
-	fi
+[ -f "$file" ] || continue
+  if [[ $(ffprobe -v quiet -print_format json -show_streams "$file" | grep -c '"channel_layout": "stereo"') -lt 1 ]]; then
+    if [[ "${file##*.}" = "mkv" ]] || [[ "${file##*.}" = "mp4" ]] || [[ "${file##*.}" = "avi" ]]; then
+      echo "$file"
+    fi
+  fi
 done

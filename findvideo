@@ -1,0 +1,19 @@
+#!/bin/bash
+
+for file in */*; do
+  [ -f "$file" ] || continue
+    if [[ $(ffprobe -v quiet -print_format json -show_streams "$file" | grep -c '"codec_long_name": "H.265') -lt 1 ]]; then
+      if [[ "${file##*.}" = "mkv" ]] || [[ "${file##*.}" = "mp4" ]] || [[ "${file##*.}" = "avi" ]]; then
+        echo "$file"
+      fi
+  fi
+done
+
+for file in */*/*; do
+[ -f "$file" ] || continue
+  if [[ $(ffprobe -v quiet -print_format json -show_streams "$file" | grep -c '"codec_long_name": "H.265') -lt 1 ]]; then
+    if [[ "${file##*.}" = "mkv" ]] || [[ "${file##*.}" = "mp4" ]] || [[ "${file##*.}" = "avi" ]]; then
+      echo "$file"
+    fi
+  fi
+done
