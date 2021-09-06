@@ -24,12 +24,8 @@ to read from STDIN
 "
 }
 
-reencode() {
-  echo "$1"
-}
-
 # Take a given file, reencode it with options from the arguments, then replace the file
-tmp() {
+reencode() {
   input="$1"
   temp="${input%.*}_tmp.${ext}"
   new="${input%.*}.${ext}"
@@ -54,7 +50,9 @@ while getopts 'i:n:e:a:v:c:h' flag; do
 done
 
 # Test if the input argument is STDIN or a file.
-if [[ "$input" = "-" ]]; then
+if [[ "$input" = '' ]]; then
+    print_usage
+elif [[ "$input" = "-" ]]; then
   while read file; do
     reencode "$file"
 
