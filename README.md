@@ -17,10 +17,6 @@ You may have to `chmod +x` the files to make them executable if they are not alr
 
 ## Scripts
 
-### bulkencode
-
-This script will reencode each file given to it from STDIN and reencode it using the `reencode` script.
-
 ### ffmpeg_chapters.py
 
 A script to make adding chapters to video files more human readable (01:23:45 timestamps instead of milliseconds).
@@ -36,3 +32,4 @@ Find a list of the files in the current directory that have 5.1 audio channels.
 ### reencode
 
 Take a video file and reencode it to a new audio and video encoding, then replace the original file.
+Can also take a list of files from STDIN or a file and reencode them all.

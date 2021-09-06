@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Default values
 input=''
 ext='mkv'
 video='copy'
@@ -7,38 +8,49 @@ audio='copy'
 channels='2'
 
 print_usage() {
-	printf "Usage: reencode_params -i FILE [optional arguments]
+  printf "Usage: reencode -i FILE [arguments]
+or: ls | reencode -i - [arguments]
+  : reencode -i - [arguments] < file_list
+to read from STDIN
 
 -i FILE    File to reencode.
 -e EXT     Use the file extension given for the output, e.g. avi. Default mkv.
 -a CODEC   Use the audio codec to encode the file, e.g. aac. Default copy.
 -v CODEC   Use the video codec to encode the file, e.g. libx265. Default copy.
 -c         Number of audio channels to use. Default 2. Requires audio codec to not be copy.
--h         Print this message."
+-h         Print this message.
+"
 }
 
+# Take a given file, reencode it with options from the arguments, then replace the file
+reencode() {
+  input="$1"
+  temp="${input%.*}_tmp.${ext}"
+  new="${input%.*}.${ext}"
+
+  ffmpeg -i "$input" -y -map 0 -c:v "$video" -c:a "$audio" -ac "$channels" -c:s copy "$temp" &&
+  rm "$input" &&
+  mv "$temp" "$new";
+}
+
+# Get the command arguments
 while getopts 'i:e:a:v:c:h' flag; do
-	case "${flag}" in
-  	i) input="${OPTARG}" ;;
-  	a) audio="${OPTARG}" ;;
+  case "${flag}" in
+    i) input="${OPTARG}" ;;
+    a) audio="${OPTARG}" ;;
     e) ext="${OPTARG}" ;;
-	c) channels="${OPTARG}" ;;
+    c) channels="${OPTARG}" ;;
     v) video="${OPTARG}" ;;
-	h) print_usage 
-				exit 1 ;;
-    *) print_usage
-      	exit 1 ;;
+    h) print_usage exit 1 ;;
+    *) print_usage exit 1 ;;
   esac
 done
 
-if [ "$input" = '' ]; then
-	print_usage
-	exit 1
+# Test if the input argument is STDIN or a file.
+if [[ "$input" = "-" ]]; then
+  while read file; do
+    reencode "$file"
+  done
+else
+  reencode "$input"
 fi
-
-temp="${input%.*}_tmp.${ext}"
-new="${input%.*}.${ext}"
-
-ffmpeg -i "$input" -y -map 0 -c:v "$video" -c:a "$audio" -ac "$channels" -c:s copy "$temp" &&
-rm "$input" &&
-mv "$temp" "$new";
