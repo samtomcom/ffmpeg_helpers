@@ -2,6 +2,8 @@
 
 This repository contains scripts that help with the execution of ffmpeg commands and related video file management.
 
+Mostly done in bash, because I thought I could do with some more practice.
+
 ## Requirements
 
 * ffmpeg
