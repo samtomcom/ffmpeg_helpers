@@ -3,8 +3,8 @@
 # Default values
 input=''
 ext='mkv'
-video='copy'
-audio='copy'
+video='libx265'
+audio='aac'
 channels='2'
 number='0'
 
@@ -17,8 +17,8 @@ to read from STDIN
 -i FILE    File to reencode, '-' to use STDIN.
 -n NUMBER  Number of files to encode if using STDIN. Not specifying will reencode all of the given files.
 -e EXT     Use the file extension given for the output, e.g. avi. Default mkv.
--a CODEC   Use the audio codec to encode the file, e.g. aac. Default copy.
--v CODEC   Use the video codec to encode the file, e.g. libx265. Default copy.
+-a CODEC   Use the audio codec to encode the file, e.g. copy. Default aac.
+-v CODEC   Use the video codec to encode the file, e.g. copy. Default libx265.
 -c         Number of audio channels to use. Default 2. Requires audio codec to not be copy.
 -h         Print this message.
 "
